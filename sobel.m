@@ -38,6 +38,7 @@ Gx = OUT;
 
 figure() 
 imshow(Gx)
+title('edges along x axis');
 
 %applying mask along y
 
@@ -52,6 +53,8 @@ Gy = OUT;
 
 figure() 
 imshow(Gy)
+title('edges along y axis');
+
 
 %applying mask along z1
 
@@ -66,6 +69,8 @@ Gz1 = OUT;
 
 figure() 
 imshow(Gz1)
+title('edges along z axis');
+
 
 %applying mask along z2
 
@@ -80,12 +85,15 @@ Gz2 = OUT;
 
 figure() 
 imshow(Gz2)
+title('edges along z axis');
+
 
 %%normalizing results
 mag=sqrt(Gx.^2 + Gy.^2);   % magnitude of image 
 
 figure()
-imshow(mag)
+imshow((mag),[]); % displays the grayscale image  based  the range of pixel values 
+title('image magnitude');
 
 ort= atan(Gx/Gy);
 
