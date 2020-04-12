@@ -10,10 +10,15 @@ imshow(L)
 
 % mask application
 
-Xmask= [-1 -2 -1 ;
+Ymask=  [-1 -2 -1 ;
          0  0  0 ;
          1  2  1];
-Ymask= [-1  0  1 ;
+     
+tymask= [-1 -2 -3 -2 -1 ;
+         0  0  0  0  0 ;
+        -1 -2 -3 -2 -1 ];
+    
+Xmask= [-1  0  1 ;
         -2  0  2 ;
         -1  0  1];
 z1mask=[ 0  1  2 ;
@@ -30,20 +35,6 @@ OUT = zeros(r-3,c-3);
 for idx= 1:(r-3)
     for jdx = 1:(c-3)
         Lsquare = Ldbl(idx:(idx+2),jdx:(jdx+2));
-        res= Xmask.*Lsquare;
-        OUT(idx,jdx)=sum(sum(res));
-    end
-end
-Gx = OUT;
-
-figure() 
-imshow(Gx)
-
-%applying mask along y
-
-for idx= 1:(r-3)
-    for jdx = 1:(c-3)
-        Lsquare = Ldbl(idx:(idx+2),jdx:(jdx+2));
         res= Ymask.*Lsquare;
         OUT(idx,jdx)=sum(sum(res));
     end
@@ -51,7 +42,24 @@ end
 Gy = OUT;
 
 figure() 
-imshow(Gy)
+imshow((Gy),[])
+title('edges along Y axis');
+
+%applying mask along x
+
+for idx= 1:(r-3)
+    for jdx = 1:(c-3)
+        Lsquare = Ldbl(idx:(idx+2),jdx:(jdx+2));
+        res= Xmask.*Lsquare;
+        OUT(idx,jdx)=sum(sum(res));
+    end
+end
+Gx = OUT;
+
+figure() 
+imshow((Gx),[])
+title('edges along x axis');
+
 
 %applying mask along z1
 
@@ -65,7 +73,9 @@ end
 Gz1 = OUT;
 
 figure() 
-imshow(Gz1)
+imshow((Gz1),[])
+title('edges along z axis');
+
 
 %applying mask along z2
 
@@ -79,17 +89,25 @@ end
 Gz2 = OUT;
 
 figure() 
-imshow(Gz2)
+imshow((Gz2),[])
+title('edges along z axis');
+
 
 %%normalizing results
 mag=sqrt(Gx.^2 + Gy.^2);   % magnitude of image 
 
 figure()
-imshow(mag)
+imshow((mag),[]); % displays the grayscale image  based  the range of pixel values 
+title('image magnitude');
 
-ort= atan(Gx/Gy);
+ort= atan(Gy./Gx);
 
 figure()
-imshow(ort)
+imshow((ort),[]);
 
+
+meg=sqrt(Gz2.^2 + Gz1.^2);   % magnitude of image 
+figure()
+imshow((mag),[]); % displays the grayscale image  based  the range of pixel values 
+title('image magnitude');
 

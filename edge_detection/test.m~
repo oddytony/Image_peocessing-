@@ -1,0 +1,7 @@
+ L = imread('lena.png');
+    [Gmag, Gdir] = imgradient(L,'sobel');
+    BW = edge(L);
+    BW2 = edge(L,'sobel','vertical');
+    BW23 = edge(L,'sobel','horizontal');
+    imshow(BW2)
+    im
